@@ -1,2 +1,0 @@
-# IGT_Client
-Client

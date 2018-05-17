@@ -1,13 +1,15 @@
+package com.company.Controller;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Client {
+public abstract class DatabaseController {
 
-    private static String BASE = "http://127.0.0.1:9005/";
+    public final static String BASE = "http://127.0.0.1:9005/";
 
-    private void sendHTTPRequest(URL url, String method) {
+    public void sendHTTPRequest(URL url, String method) {
         try {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(method);
@@ -28,26 +30,4 @@ public class Client {
             e.printStackTrace();
         }
     }
-
-    public void createCustomer(){
-        try{
-            URL url = new URL(BASE + "customer/createCustomer?name=" + "Jensi");
-            sendHTTPRequest(url, "GET");
-        }catch(Exception ex){
-            System.out.println(ex.toString());
-        }
-    }
-
-    public static void main(String[] args) {
-        Client client = new Client();
-        System.out.println("CREATE CUSTOMER");
-        try{
-            client.createCustomer();
-
-        }catch(Exception ex){
-            System.out.println(ex.toString());
-        }
-    }
-
 }
-
