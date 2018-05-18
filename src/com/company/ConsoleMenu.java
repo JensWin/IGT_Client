@@ -13,23 +13,32 @@ public class ConsoleMenu {
         System.out.println("7: Use Ordercontroller");
         System.out.println("8: Use Orderlinecontroller");
         System.out.println("9: Use Warehousecontroller");
+        System.out.println("0: Use Databasecontroller");
         System.out.println("=========BPMN CLIENT========");
     }
 
-    public void customerMenu(){
-        System.out.println("=========CUSTOMER CONTROLLER========");
-        System.out.println("What do you want to do? 'Close' for quitting");
-        System.out.println("1: Create Customer");
-        System.out.println("2: Get Customer");
-        System.out.println("3: Delete Customer");
-        System.out.println("4: Update Customer");
-        System.out.println("=========CUSTOMER CONTROLLER========");
+    public void entityControllerMenu(String entityname){
+        System.out.println("=========" +entityname.toUpperCase() + " CONTROLLER========");
+        System.out.println("What do you want to do?");
+        System.out.println("1: Create " + entityname);
+        System.out.println("2: Get " + entityname);
+        System.out.println("3: Delete " + entityname);
+        System.out.println("4: Update " + entityname);
+        System.out.println("5: Return to mainmenu");
+        System.out.println("=========" +entityname.toUpperCase() + " CONTROLLER========");
     }
 
-    public void continueMenu(){
-        System.out.println("=========CONTINUE?========");
-        System.out.println("1: YES");
-        System.out.println("2: NO");
-        System.out.println("=========CONTINUE?========");
+    public void databaseControllerMenu(){
+        System.out.println("=========DATABASE CONTROLLER========");
+        System.out.println("Choose database you want to switch to: ");
+        System.out.println("1: MySQL");
+        System.out.println("2: Postresql");
+        System.out.println("3: MongoDB");
+        System.out.println("4: Neo4J");
+        System.out.println("5: Infinispan");
+        System.out.println("6: Cassandra");
+        System.out.println("7: Redis");
+        System.out.println("8: Return to mainmenu");
+        System.out.println("=========DATABASE CONTROLLER========");
     }
 }

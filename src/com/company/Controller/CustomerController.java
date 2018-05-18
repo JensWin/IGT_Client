@@ -1,10 +1,11 @@
 package com.company.Controller;
 
 import com.company.Interface.IController;
+import com.company.utilities.ConnectionManager;
 
 import java.net.URL;
 
-public class CustomerController extends DatabaseController  implements IController {
+public class CustomerController extends ConnectionManager implements IController {
 
 
     public void create(String name){
