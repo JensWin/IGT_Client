@@ -13,12 +13,14 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 	    Boolean doWork = true;
 
+
 	    while(doWork){
             menu.startUpMenu();
             String chosenAction = scanner.nextLine();
             switch(chosenAction){
                 case "1":{
-
+                    startBPMN();
+                    break;
                 }
                 case "2":{
                     CustomerController controller = new CustomerController();
@@ -31,18 +33,7 @@ public class Main {
                     main.useController(controller, menu, scanner, chosenCustomerAction, name, entityName);
                     break;
                 }
-                case "3":{
-                    CompanyController controller = new CompanyController();
 
-                    String name = controller.getName().substring(controller.getName().lastIndexOf(".") + 1);
-                    String entityName = name.substring(0, name.length()-10);
-
-                    menu.entityControllerMenu(entityName);
-                    String chosenCompanyAction = scanner.nextLine();
-                    main.useController(controller, menu, scanner, chosenCompanyAction, name, entityName);
-                    //doWork = main.useCompanyController(menu, scanner);
-                    break;
-                }
                 case "4":{
                     DistrictController controller = new DistrictController();
 
@@ -55,18 +46,7 @@ public class Main {
                     //doWork = main.useDistrictController(menu, scanner);
                     break;
                 }
-                case "5":{
-                    HistoryController controller = new HistoryController();
 
-                    String name = controller.getName().substring(controller.getName().lastIndexOf(".") + 1);
-                    String entityName = name.substring(0, name.length()-10);
-
-                    menu.entityControllerMenu(entityName);
-                    String chosenHistoryAction = scanner.nextLine();
-                    main.useController(controller, menu, scanner, chosenHistoryAction, name, entityName);
-                    //doWork = main.useHistoryController(menu, scanner);
-                    break;
-                }
                 case "6":{
                     ItemController controller = new ItemController();
 
@@ -120,6 +100,7 @@ public class Main {
                     menu.databaseControllerMenu();
                     String chosenDatabaseAction = scanner.nextLine();
                     main.useDatabaseController(controller, chosenDatabaseAction);
+                    break;
 
                 }
                 case "Close":{
@@ -147,15 +128,11 @@ public class Main {
                     case "CustomerController":
                         this.useCustomerController((CustomerController)controller, scanner);
                         break;
-                    case "CompanyController":
-                        this.useCompanyController((CompanyController)controller, scanner);
-                        break;
+
                     case "DistrictController":
                         this.useDistrictController((DistrictController)controller, scanner);
                         break;
-                    case "HistoryController":
-                        this.useHistoryController((HistoryController)controller, scanner);
-                        break;
+
                     case "ItemController":
                         this.useItemController((ItemController)controller, scanner);
                         break;
@@ -200,49 +177,52 @@ public class Main {
     private void useCustomerController(CustomerController controller, Scanner scanner){
         System.out.println("Enter the name of the customer: ");
         String name = scanner.nextLine();
-        controller.create(name);
+        System.out.println("Enter the district of the customer: ");
+        String district = scanner.nextLine();
+        System.out.println("Enter the pw of the customer: ");
+        String pw = scanner.nextLine();
+        controller.create(name, district, pw);
         System.out.println("CREATED");
     }
 
-    private void useCompanyController(CompanyController controller, Scanner scanner){
-        System.out.println("Enter the name of the company: ");
-        String name = scanner.nextLine();
-        controller.create(name);
-        System.out.println("CREATED");
-    }
 
     private void useDistrictController(DistrictController controller, Scanner scanner){
         System.out.println("Enter the name of the district: ");
         String name = scanner.nextLine();
-        controller.create(name);
+        System.out.println("Enter the name of the warehouse: ");
+        String warehouse = scanner.nextLine();
+        controller.create(name, warehouse);
         System.out.println("CREATED");
     }
 
-    private void useHistoryController(HistoryController controller, Scanner scanner){
-        System.out.println("Enter the name of the history: ");
-        String name = scanner.nextLine();
-        controller.create(name);
-        System.out.println("CREATED");
-    }
+
 
     private void useOrderController(OrderController controller, Scanner scanner){
         System.out.println("Enter the name of the order: ");
         String name = scanner.nextLine();
-        controller.create(name);
+        System.out.println("Enter the customer of the order: ");
+        String customer = scanner.nextLine();
+        controller.create(name, customer);
         System.out.println("CREATED");
     }
 
     private void useItemController(ItemController controller, Scanner scanner){
         System.out.println("Enter the name of the item: ");
         String name = scanner.nextLine();
-        controller.create(name);
+        System.out.println("Enter the warehouse of the item: ");
+        String warehouse = scanner.nextLine();
+        System.out.println("Enter the stock of the item: ");
+        String stock = scanner.nextLine();
+        controller.create(name, warehouse, stock);
         System.out.println("CREATED");
     }
 
     private void useOrderlineController(OrderlineController controller, Scanner scanner){
-        System.out.println("Enter the name of the orderline: ");
-        String name = scanner.nextLine();
-        controller.create(name);
+        System.out.println("Enter the item of the orderline: ");
+        String item = scanner.nextLine();
+        System.out.println("Enter the order of the orderline: ");
+        String order = scanner.nextLine();
+        controller.create(item, order);
         System.out.println("CREATED");
     }
 
@@ -279,5 +259,61 @@ public class Main {
             case "8":
                 break;
         }
+    }
+
+    public static String getID(String input){
+        int start = input.indexOf("\"id\":\"");
+        input = input.substring(start+6);
+        String output = "";
+        for(int i=0; i<input.length();i++){
+            if(input.charAt(i)=='\"'){
+                break;
+            }else{
+                output = output + input.charAt(i);
+            }
+        }
+        return output;
+    }
+
+    public static void startBPMN(){
+        WarehouseController warehouseController = new WarehouseController();
+        DistrictController districtController = new DistrictController();
+        CustomerController customerController = new CustomerController();
+        OrderController orderController = new OrderController();
+        NewOrderController newOrderController = new NewOrderController();
+        ItemController itemController = new ItemController();
+        OrderlineController orderlineController = new OrderlineController();
+
+        String warehouseID = getID(warehouseController.create("warehouse"));
+        String district1ID = getID(districtController.create("dis1",warehouseID));
+        String district2ID = getID(districtController.create("dis2",warehouseID));
+        String customer1ID = getID(customerController.create("Hans", district1ID,"1234"));
+        String customer2ID = getID(customerController.create("Olaf", district2ID,"1234"));
+        String order1Cust1ID = getID(orderController.create("Order1Cust1", customer1ID));
+        String order2Cust1ID = getID(orderController.create("Order2Cust1", customer1ID));
+        String order1Cust2ID = getID(orderController.create("Order1Cust2", customer2ID));
+        String order2Cust2ID = getID(orderController.create("Order2Cust2", customer2ID));
+        newOrderController.create(order1Cust1ID);
+        newOrderController.create(order2Cust1ID);
+        newOrderController.create(order1Cust2ID);
+        newOrderController.create(order2Cust2ID);
+        String item1ID = getID(itemController.create("Tastatut",warehouseID,"5"));
+        String item2ID = getID(itemController.create("Mausis",warehouseID,"45000"));
+        String item3ID = getID(itemController.create("Cola_von_Coca",warehouseID,"420"));
+        String item4ID = getID(itemController.create("Chips",warehouseID,"3"));
+        String item5ID = getID(itemController.create("Pupsspray",warehouseID,"40000"));
+        String item6ID = getID(itemController.create("Klopapier",warehouseID,"7457"));
+        String item7ID = getID(itemController.create("Zwiebeln",warehouseID,"5"));
+        String item8ID = getID(itemController.create("Zugga",warehouseID,"23"));
+        orderlineController.create(item1ID,order1Cust1ID);
+        orderlineController.create(item2ID,order1Cust1ID);
+        orderlineController.create(item3ID,order1Cust2ID);
+        orderlineController.create(item4ID,order1Cust2ID);
+        orderlineController.create(item5ID,order2Cust1ID);
+        orderlineController.create(item6ID,order2Cust1ID);
+        orderlineController.create(item7ID,order2Cust2ID);
+        orderlineController.create(item8ID,order2Cust2ID);
+
+
     }
 }

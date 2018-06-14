@@ -6,18 +6,19 @@ import com.company.utilities.ConnectionManager;
 import java.net.URL;
 
 public class OrderlineController  extends ConnectionManager implements IController {
-    public void create(String name){
+    public String create(String item, String order){
         try{
-            URL url = new URL(BASE + String.format("orderline/create?name=%s", name));
-            sendHTTPRequest(url, "GET");
+            URL url = new URL(BASE + String.format("orderline/create?item="+item+"&order="+order));
+            return sendHTTPRequest(url, "GET");
         }catch(Exception ex){
             System.out.println(ex.toString());
+            return null;
         }
     }
 
     public void get(String id){
         try{
-            URL url = new URL(BASE + String.format("orderline/get?id=%s", id));
+            URL url = new URL(BASE + String.format("orderline/get/id=%s", id));
             sendHTTPRequest(url, "GET");
         }catch(Exception ex){
             System.out.println(ex.toString());
@@ -27,20 +28,20 @@ public class OrderlineController  extends ConnectionManager implements IControll
     public void delete(String id){
         try{
             URL url = new URL(BASE + String.format("orderline/delete?id=%s", id));
-            sendHTTPRequest(url, "GET");
+            sendHTTPRequest(url, "DELETE");
             System.out.println("Deleted successfully");
         }catch(Exception ex){
             System.out.println(ex.toString());
         }
     }
 
-    public void update(){
-        /*try{
-            URL url = new URL(BASE + "orderline/get/" + "1");
-            sendHTTPRequest(url, "GET");
+    public void update(String item, String order, String id){
+        try{
+            URL url = new URL(BASE + String.format("orderline/create?item="+item+"&order="+order+"&id="+id));
+            sendHTTPRequest(url, "PUT");
         }catch(Exception ex){
             System.out.println(ex.toString());
-        }*/
+        }
     }
 
     public String getName(){

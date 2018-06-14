@@ -6,12 +6,13 @@ import com.company.utilities.ConnectionManager;
 import java.net.URL;
 
 public class DistrictController  extends ConnectionManager implements IController {
-    public void create(String name){
+    public String create(String name, String warehouse){
         try{
-            URL url = new URL(BASE + String.format("district/create?name=%s", name));
-            sendHTTPRequest(url, "GET");
+            URL url = new URL(BASE + String.format("district/create?name="+name+"&warehouse="+warehouse));
+            return sendHTTPRequest(url, "GET");
         }catch(Exception ex){
             System.out.println(ex.toString());
+            return null;
         }
     }
 
@@ -27,20 +28,20 @@ public class DistrictController  extends ConnectionManager implements IControlle
     public void delete(String id){
         try{
             URL url = new URL(BASE + String.format("district/delete?id=%s", id));
-            sendHTTPRequest(url, "GET");
+            sendHTTPRequest(url, "DELETE");
             System.out.println("Deleted successfully");
         }catch(Exception ex){
             System.out.println(ex.toString());
         }
     }
 
-    public void update(){
-        /*try{
-            URL url = new URL(BASE + "district/get/" + "1");
-            sendHTTPRequest(url, "GET");
+    public void update(String name, String id, String warehouse){
+        try{
+            URL url = new URL(BASE + "district/get?name="+name+"&id="+id+"&warehouse="+warehouse);
+            sendHTTPRequest(url, "PUT");
         }catch(Exception ex){
             System.out.println(ex.toString());
-        }*/
+        }
     }
 
     public String getName(){

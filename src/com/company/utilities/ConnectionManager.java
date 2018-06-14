@@ -6,10 +6,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public abstract class ConnectionManager {
-    public final static String BASE = "http://127.0.0.1:9005/";
+    public final static String BASE = "http://localhost:9005/";
 
-    public void sendHTTPRequest(URL url, String method) {
+
+    public String sendHTTPRequest(URL url, String method) {
         try {
+            String returnString = "";
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod(method);
             conn.setRequestProperty("Accept", "application/json");
@@ -24,9 +26,12 @@ public abstract class ConnectionManager {
             String output;
             while ((output = br.readLine()) != null) {
                 System.out.println(output);
+                returnString = returnString + output;
             }
+            return returnString;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
 }
