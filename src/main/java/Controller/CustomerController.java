@@ -1,7 +1,7 @@
-package com.company.Controller;
+package Controller;
 
-import com.company.Interface.IController;
-import com.company.utilities.ConnectionManager;
+import Interface.IController;
+import utilities.ConnectionManager;
 
 import java.net.URL;
 

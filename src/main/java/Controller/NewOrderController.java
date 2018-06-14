@@ -1,14 +1,15 @@
-package com.company.Controller;
+package Controller;
 
-import com.company.Interface.IController;
-import com.company.utilities.ConnectionManager;
+import Interface.IController;
+import utilities.ConnectionManager;
 
 import java.net.URL;
 
-public class WarehouseController  extends ConnectionManager implements IController {
-    public String create(String name){
+public class NewOrderController extends ConnectionManager implements IController {
+
+    public String create(String order){
         try{
-            URL url = new URL(BASE + String.format("warehouse/create?name=%s", name));
+            URL url = new URL(BASE + String.format("neworder/create?order="+ order));
             return sendHTTPRequest(url, "GET");
         }catch(Exception ex){
             System.out.println(ex.toString());
@@ -18,7 +19,7 @@ public class WarehouseController  extends ConnectionManager implements IControll
 
     public void get(String id){
         try{
-            URL url = new URL(BASE + String.format("warehouse/get?id=%s", id));
+            URL url = new URL(BASE + String.format("neworder/get/"+ id));
             sendHTTPRequest(url, "GET");
         }catch(Exception ex){
             System.out.println(ex.toString());
@@ -27,7 +28,7 @@ public class WarehouseController  extends ConnectionManager implements IControll
 
     public void delete(String id){
         try{
-            URL url = new URL(BASE + String.format("warehouse/delete?id=%s", id));
+            URL url = new URL(BASE + String.format("neworder/delete?id=%s", id));
             sendHTTPRequest(url, "DELETE");
             System.out.println("Deleted successfully");
         }catch(Exception ex){
@@ -35,9 +36,9 @@ public class WarehouseController  extends ConnectionManager implements IControll
         }
     }
 
-    public void update(String id, String name){
+    public void update(String id, String order){
         try{
-            URL url = new URL(BASE + "warehouse/get?id="+id+"&name="+name);
+            URL url = new URL(BASE + "neworder/update?id="+id+"&order="+order);
             sendHTTPRequest(url, "PUT");
         }catch(Exception ex){
             System.out.println(ex.toString());

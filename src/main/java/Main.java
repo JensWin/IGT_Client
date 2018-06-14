@@ -1,7 +1,5 @@
-package com.company;
-
-import com.company.Controller.*;
-import com.company.Interface.IController;
+import Controller.*;
+import Interface.IController;
 
 import java.util.Scanner;
 
@@ -9,14 +7,15 @@ public class Main {
 
     public static void main(String[] args) {
         Main main = new Main();
-	    ConsoleMenu menu = new ConsoleMenu();
+        ConsoleMenu menu = new ConsoleMenu();
         Scanner scanner = new Scanner(System.in);
-	    Boolean doWork = true;
+        Boolean doWork = true;
 
 
-	    while(doWork){
+        while(doWork){
             menu.startUpMenu();
             String chosenAction = scanner.nextLine();
+
             switch(chosenAction){
                 case "1":{
                     startBPMN();

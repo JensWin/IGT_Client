@@ -1,14 +1,14 @@
-package com.company.Controller;
+package Controller;
 
-import com.company.Interface.IController;
-import com.company.utilities.ConnectionManager;
+import Interface.IController;
+import utilities.ConnectionManager;
 
 import java.net.URL;
 
-public class DistrictController  extends ConnectionManager implements IController {
-    public String create(String name, String warehouse){
+public class OrderController  extends ConnectionManager implements IController {
+    public String create(String name, String customer){
         try{
-            URL url = new URL(BASE + String.format("district/create?name="+name+"&warehouse="+warehouse));
+            URL url = new URL(BASE + String.format("order/create?name="+name+"&customer="+customer));
             return sendHTTPRequest(url, "GET");
         }catch(Exception ex){
             System.out.println(ex.toString());
@@ -18,7 +18,7 @@ public class DistrictController  extends ConnectionManager implements IControlle
 
     public void get(String id){
         try{
-            URL url = new URL(BASE + String.format("district/get?id=%s", id));
+            URL url = new URL(BASE + String.format("order/get/id=%s", id));
             sendHTTPRequest(url, "GET");
         }catch(Exception ex){
             System.out.println(ex.toString());
@@ -27,7 +27,7 @@ public class DistrictController  extends ConnectionManager implements IControlle
 
     public void delete(String id){
         try{
-            URL url = new URL(BASE + String.format("district/delete?id=%s", id));
+            URL url = new URL(BASE + String.format("order/delete?id=%s", id));
             sendHTTPRequest(url, "DELETE");
             System.out.println("Deleted successfully");
         }catch(Exception ex){
@@ -35,9 +35,9 @@ public class DistrictController  extends ConnectionManager implements IControlle
         }
     }
 
-    public void update(String name, String id, String warehouse){
+    public void update(String name, String id, String customer){
         try{
-            URL url = new URL(BASE + "district/get?name="+name+"&id="+id+"&warehouse="+warehouse);
+            URL url = new URL(BASE + String.format("order/update?name="+name+"&customer="+customer+"&id="+id));
             sendHTTPRequest(url, "PUT");
         }catch(Exception ex){
             System.out.println(ex.toString());

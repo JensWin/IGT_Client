@@ -1,6 +1,6 @@
-package com.company.Controller;
+package Controller;
 
-import com.company.utilities.ConnectionManager;
+import utilities.ConnectionManager;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

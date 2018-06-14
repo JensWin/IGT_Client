@@ -1,4 +1,3 @@
-package com.company;
 
 public class ConsoleMenu {
     public void startUpMenu(){

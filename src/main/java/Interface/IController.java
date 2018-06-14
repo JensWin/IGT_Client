@@ -1,4 +1,4 @@
-package com.company.Interface;
+package Interface;
 
 public interface IController {
     String getName();

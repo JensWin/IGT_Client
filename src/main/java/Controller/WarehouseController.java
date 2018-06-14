@@ -1,14 +1,14 @@
-package com.company.Controller;
+package Controller;
 
-import com.company.Interface.IController;
-import com.company.utilities.ConnectionManager;
+import Interface.IController;
+import utilities.ConnectionManager;
 
 import java.net.URL;
 
-public class OrderController  extends ConnectionManager implements IController {
-    public String create(String name, String customer){
+public class WarehouseController  extends ConnectionManager implements IController {
+    public String create(String name){
         try{
-            URL url = new URL(BASE + String.format("order/create?name="+name+"&customer="+customer));
+            URL url = new URL(BASE + String.format("warehouse/create?name=%s", name));
             return sendHTTPRequest(url, "GET");
         }catch(Exception ex){
             System.out.println(ex.toString());
@@ -18,7 +18,7 @@ public class OrderController  extends ConnectionManager implements IController {
 
     public void get(String id){
         try{
-            URL url = new URL(BASE + String.format("order/get/id=%s", id));
+            URL url = new URL(BASE + String.format("warehouse/get?id=%s", id));
             sendHTTPRequest(url, "GET");
         }catch(Exception ex){
             System.out.println(ex.toString());
@@ -27,7 +27,7 @@ public class OrderController  extends ConnectionManager implements IController {
 
     public void delete(String id){
         try{
-            URL url = new URL(BASE + String.format("order/delete?id=%s", id));
+            URL url = new URL(BASE + String.format("warehouse/delete?id=%s", id));
             sendHTTPRequest(url, "DELETE");
             System.out.println("Deleted successfully");
         }catch(Exception ex){
@@ -35,9 +35,9 @@ public class OrderController  extends ConnectionManager implements IController {
         }
     }
 
-    public void update(String name, String id, String customer){
+    public void update(String id, String name){
         try{
-            URL url = new URL(BASE + String.format("order/update?name="+name+"&customer="+customer+"&id="+id));
+            URL url = new URL(BASE + "warehouse/get?id="+id+"&name="+name);
             sendHTTPRequest(url, "PUT");
         }catch(Exception ex){
             System.out.println(ex.toString());
